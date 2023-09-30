@@ -2,6 +2,7 @@
 using LD54.Data;
 using LD54.Inputs;
 using NiUtils.Extensions;
+using NiUtils.GameStates;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,7 +25,7 @@ namespace LD54.Game {
 		protected override IEnumerator Continue() {
 			while (currentState == this) {
 				var cursorRay = StorageCamera.currentCamera.ScreenPointToRay(GameInputs.controls.Player.Aim.ReadValue<Vector2>());
-				hitInteractable = Physics.Raycast(cursorRay, out var hitInfo, 50, config.defaultStateHitLayerMask) ? hitInfo.collider.GetComponentInParent<IInteractable>() : null;
+				hitInteractable = Physics.Raycast(cursorRay, out var hitInfo, 50, GameSessionData.current.config.defaultStateHitLayerMask) ? hitInfo.collider.GetComponentInParent<IInteractable>() : null;
 				yield return null;
 			}
 		}

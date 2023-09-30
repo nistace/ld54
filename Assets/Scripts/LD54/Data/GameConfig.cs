@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace LD54.Data {
 	[CreateAssetMenu]
@@ -10,6 +11,8 @@ namespace LD54.Data {
 		[SerializeField] protected float _packageSmoothRotation = .5f;
 		[SerializeField] protected float _minDelayBetweenPackageRotations = .1f;
 		[SerializeField] protected float _placementDelayBeforeInteraction = .1f;
+		[SerializeField] protected AnimationCurve _spawnPerSecondCurve = AnimationCurve.Linear(0, 0, 1, 1);
+		[SerializeField] protected Package[] _spawnablePackages;
 
 		public LayerMask defaultStateHitLayerMask => _defaultStateHitLayerMask;
 		public LayerMask placementStateHitLayerMask => _placementStateHitLayerMask;
@@ -18,5 +21,7 @@ namespace LD54.Data {
 		public float packageSmoothRotation => _packageSmoothRotation;
 		public float minDelayBetweenPackageRotations => _minDelayBetweenPackageRotations;
 		public float placementDelayBeforeInteraction => _placementDelayBeforeInteraction;
+		public AnimationCurve spawnPerSecondCurve => _spawnPerSecondCurve;
+		public IEnumerable<Package> spawnablePackages => _spawnablePackages;
 	}
 }

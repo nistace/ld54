@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec03e37490974932917deb209cb403ec, type: 3}
-  m_Name: TestRotate
+  m_Script: {fileID: 11500000, guid: f4f922537abb47d4bdbfd99e245a30fb, type: 3}
+  m_Name: PackageInWaterProps
   m_EditorClassIdentifier: 
-  _shape:
-    lines:
-    - cells: 00000101000101
-    - cells: 01000000000101
-    - cells: 01000001000000
-    - cells: 00000000010000
+  _upForce: {x: 0, y: 12, z: 0}
+  _forceMode: 0
+  _waterLevel: -1
+  _surfaceHeight: 0.4
+  _maxVelocityMagnitudeAtSurface: 0.1
+  _smoothDampTime: 0.3

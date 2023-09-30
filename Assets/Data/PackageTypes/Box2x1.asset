@@ -15,14 +15,4 @@ MonoBehaviour:
   _shape:
     lines:
     - cells: 0101
-  _rotatedOnce:
-    lines:
-    - cells: 01
-    - cells: 01
-  _rotatedTwice:
-    lines:
-    - cells: 0101
-  _rotatedThrice:
-    lines:
-    - cells: 01
-    - cells: 01
+  _inWater: {fileID: 11400000, guid: 68b8eb0632ff8564eb36a2e6f5b6665e, type: 2}

@@ -18,8 +18,101 @@ MonoBehaviour:
   _placementStateHitLayerMask:
     serializedVersion: 2
     m_Bits: 144
-  _placementStatePackageYOffset: 1.5
+  _placementStatePackageYOffset: 1.8
   _packageSmoothPosition: 0.1
   _packageSmoothRotation: 0.1
   _minDelayBetweenPackageRotations: 0.1
   _placementDelayBeforeInteraction: 0.1
+  _spawnPerSecondCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 60
+      value: 0.2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 90
+      value: 0.3
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 120
+      value: 0.4
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 150
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 180
+      value: 0.6
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 210
+      value: 0.8
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 240
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 600
+      value: 10
+      inSlope: 0.025
+      outSlope: 0.025
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _spawnablePackages:
+  - {fileID: 2113824398045682820, guid: feb65439b2215f14b9e221d5ebba464d, type: 3}
+  - {fileID: 2113824398045682820, guid: 5698c4e392761cf4e936d280a0c2ea2c, type: 3}
+  - {fileID: 313497245976870673, guid: 1c465303602654b42afb2ca16b329435, type: 3}
+  - {fileID: 313497245976870673, guid: f538df2371eaa4743b64a287a9e99915, type: 3}
+  - {fileID: 2113824398045682820, guid: 3fcb5ad6509c4af4d970454dfff2678e, type: 3}

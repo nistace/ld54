@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using LD54.Data;
 using LD54.Inputs;
 using NiUtils.Extensions;
+using NiUtils.GameStates;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -41,7 +41,7 @@ namespace LD54.Game {
 			initialPositionOccupiedStorageCells = Storage.current.GetAllCellsContainingPackage(package);
 			Storage.current.RemovePackage(package);
 			package.rigidbody.isKinematic = true;
-			packageDesiredPosition = package.transform.position.With(y: config.placementStatePackageYOffset);
+			packageDesiredPosition = package.transform.position.With(y: GameSessionData.current.config.placementStatePackageYOffset);
 			packageDesiredForward = SnapForwardToAllowedAngle(package.transform.forward);
 			rotationVelocity = Vector3.zero;
 			positionVelocity = Vector3.zero;
@@ -67,12 +67,13 @@ namespace LD54.Game {
 				interactionEffect = InteractionEffect.Forbidden;
 				if (IsStartDelayPassed()) {
 					var cursorRay = StorageCamera.currentCamera.ScreenPointToRay(GameInputs.controls.Player.Aim.ReadValue<Vector2>());
-					if (Physics.Raycast(cursorRay, out var hitInfo, 50, config.placementStateHitLayerMask)) {
-						packageDesiredPosition = Storage.SnapShapeCenterToGrid(hitInfo.point, package.shape) + Vector3.up * config.placementStatePackageYOffset;
+					if (Physics.Raycast(cursorRay, out var hitInfo, 50, GameSessionData.current.config.placementStateHitLayerMask)) {
+						packageDesiredPosition = Storage.SnapShapeCenterToGrid(hitInfo.point, package.shape).With(y: GameSessionData.current.config.placementStatePackageYOffset);
 						var newlyHoveredCellCoordinates = Storage.current.GetHoveredCellCoordinates(packageDesiredPosition, package.shape, out var anyInGrid).ToSet();
 						Storage.current.UnmarkAllCells();
 						if (!anyInGrid) {
 							interactionEffect = InteractionEffect.DropOutsideOfStorage;
+							packageDesiredPosition = hitInfo.point.With(y: GameSessionData.current.config.placementStatePackageYOffset);
 						}
 						else {
 							var hasUnavailableCells = false;
@@ -86,13 +87,13 @@ namespace LD54.Game {
 						}
 					}
 				}
-				package.transform.position = Vector3.SmoothDamp(package.transform.position, packageDesiredPosition, ref positionVelocity, config.packageSmoothPosition);
-				package.transform.forward = Vector3.SmoothDamp(package.transform.forward, packageDesiredForward, ref rotationVelocity, config.packageSmoothRotation);
+				package.transform.position = Vector3.SmoothDamp(package.transform.position, packageDesiredPosition, ref positionVelocity, GameSessionData.current.config.packageSmoothPosition);
+				package.transform.forward = Vector3.SmoothDamp(package.transform.forward, packageDesiredForward, ref rotationVelocity, GameSessionData.current.config.packageSmoothRotation);
 				yield return null;
 			}
 		}
 
-		private bool IsStartDelayPassed() => stateStartTime + config.placementDelayBeforeInteraction < Time.time;
+		private bool IsStartDelayPassed() => stateStartTime + GameSessionData.current.config.placementDelayBeforeInteraction < Time.time;
 
 		protected override void SetListenersEnabled(bool enabled) {
 			GameInputs.controls.Player.Interact.SetPerformListenerOnce(HandlePlace, enabled);
@@ -102,13 +103,14 @@ namespace LD54.Game {
 
 		private void HandleRotation(InputAction.CallbackContext obj) {
 			if (!IsStartDelayPassed()) return;
-			if (lastRotationTime + config.minDelayBetweenPackageRotations > Time.time) return;
+			if (lastRotationTime + GameSessionData.current.config.minDelayBetweenPackageRotations > Time.time) return;
 			packageDesiredForward = Quaternion.Euler(0, -Mathf.RoundToInt(obj.ReadValue<float>()) * 90, 0) * packageDesiredForward;
 			lastRotationTime = Time.time;
 		}
 
 		private void HandleCancel(InputAction.CallbackContext obj) {
 			package.transform.position = initialPosition;
+			Storage.current.SetPackage(initialPositionOccupiedStorageCells, package);
 			ChangeState(DefaultGameState.state);
 		}
 
@@ -117,6 +119,8 @@ namespace LD54.Game {
 				Debug.Log("Nope");
 				return;
 			}
+			package.transform.position = packageDesiredPosition;
+			package.transform.forward = packageDesiredForward;
 			if (interactionEffect == InteractionEffect.DropInStorage) {
 				Storage.current.SetPackage(hoveredCellCoordinates, package);
 			}

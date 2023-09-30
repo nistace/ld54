@@ -7,9 +7,11 @@ namespace LD54.Game {
 		[SerializeField] private GameConfig config;
 
 		private void Start() {
-			GameState.config = config;
+			GameSessionData.CreateNew(config);
 			Storage.current.Build();
+			PackageSpawner.current.Init();
 			NiUtils.GameStates.GameState.ChangeState(DefaultGameState.state);
+			GameSessionData.current.StartGame();
 		}
 
 		private void OnEnable() {
