@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace LD54.Data {
@@ -7,6 +8,7 @@ namespace LD54.Data {
 
 		[SerializeField] protected PackageType _type;
 		[SerializeField] protected Rigidbody _rigidbody;
+		[SerializeField] protected Transform _grabAnchor;
 
 		public new Rigidbody rigidbody => _rigidbody;
 		public PackageShape shape => _type.shape.GetRotated(Mathf.RoundToInt(Vector3.SignedAngle(Vector3.forward, transform.forward, Vector3.up) / 90));
@@ -16,6 +18,13 @@ namespace LD54.Data {
 
 		public static Event onDelivered { get; } = new Event();
 		public static Event onDecayed { get; } = new Event();
+		public bool locked { get; set; }
+		public Vector3 grabAnchorPosition => _grabAnchor.position;
+		public int shapeCellSize { get; private set; }
+
+		private void Start() {
+			shapeCellSize = _type.shapeSize;
+		}
 
 		private void Update() {
 			inWater = !_rigidbody.isKinematic && transform.position.y < _type.inWater.waterLevel;

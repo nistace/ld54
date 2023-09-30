@@ -9,6 +9,7 @@ namespace LD54.Game {
 		private void Start() {
 			GameSessionData.CreateNew(config);
 			Storage.current.Build();
+			Copter.current.Init();
 			PackageSpawner.current.Init();
 			NiUtils.GameStates.GameState.ChangeState(DefaultGameState.state);
 			GameSessionData.current.StartGame();

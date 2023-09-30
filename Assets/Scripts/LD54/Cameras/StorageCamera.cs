@@ -12,6 +12,7 @@ namespace LD54 {
 		[SerializeField] protected float _positionSmooth = .5f;
 		[SerializeField] protected float _distanceSmooth = .5f;
 		[SerializeField] protected AnimationCurve _distancePerStorageSizeCurve;
+		[SerializeField] protected Vector3 _targetOffsetWithStorageCenter;
 
 		private Vector3 positionVelocity;
 		private Vector3 distanceVelocity;
@@ -27,7 +28,7 @@ namespace LD54 {
 				sizeUsedToEvaluateDistanceVector = _storage.size;
 				desiredDistanceVector = new Vector3(0, 0, -_distancePerStorageSizeCurve.Evaluate(sizeUsedToEvaluateDistanceVector));
 			}
-			transform.position = Vector3.SmoothDamp(transform.position, _storage.center, ref positionVelocity, _positionSmooth);
+			transform.position = Vector3.SmoothDamp(transform.position, _storage.center + _targetOffsetWithStorageCenter, ref positionVelocity, _positionSmooth);
 			_distanceTransform.localPosition = Vector3.SmoothDamp(_distanceTransform.localPosition, desiredDistanceVector, ref distanceVelocity, _distanceSmooth);
 		}
 	}

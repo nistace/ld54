@@ -110,7 +110,7 @@ namespace LD54.Game {
 
 		private void HandleCancel(InputAction.CallbackContext obj) {
 			package.transform.position = initialPosition;
-			Storage.current.SetPackage(initialPositionOccupiedStorageCells, package);
+			Storage.current.AddPackage(initialPositionOccupiedStorageCells, package);
 			ChangeState(DefaultGameState.state);
 		}
 
@@ -122,7 +122,7 @@ namespace LD54.Game {
 			package.transform.position = packageDesiredPosition;
 			package.transform.forward = packageDesiredForward;
 			if (interactionEffect == InteractionEffect.DropInStorage) {
-				Storage.current.SetPackage(hoveredCellCoordinates, package);
+				Storage.current.AddPackage(hoveredCellCoordinates, package);
 			}
 			ChangeState(DefaultGameState.state);
 		}

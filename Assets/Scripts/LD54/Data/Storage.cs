@@ -23,6 +23,8 @@ namespace LD54.Data {
 		private Dictionary<Vector2Int, StorageCell> cells { get; } = new Dictionary<Vector2Int, StorageCell>();
 		private List<StorageCell> hiddenFakeCells { get; } = new List<StorageCell>();
 		private Dictionary<Vector2Int, StorageCell> visibleFakeCells { get; } = new Dictionary<Vector2Int, StorageCell>();
+		private List<Package> packagesReadyToDeliver { get; } = new List<Package>();
+		public bool isFull => cells.Values.All(t => t.package);
 
 		private void Awake() {
 			current = this;
@@ -117,7 +119,7 @@ namespace LD54.Data {
 			while (visibleFakeCells.Count > 0) UnmarkCell(visibleFakeCells.First().Key);
 		}
 
-		public void UnmarkCell(Vector2Int coordinates) {
+		private void UnmarkCell(Vector2Int coordinates) {
 			if (cells.ContainsKey(coordinates)) {
 				cells[coordinates].SetMaterial(StorageCellData.MaterialType.Default);
 			}
@@ -144,17 +146,19 @@ namespace LD54.Data {
 			}
 		}
 
-		public bool IsInGrid(Vector2Int coordinates) => cells.ContainsKey(coordinates);
+		private bool IsInGrid(Vector2Int coordinates) => cells.ContainsKey(coordinates);
 
 		public bool IsAvailable(Vector2Int coordinates) => IsInGrid(coordinates) && !cells[coordinates].package;
 
 		public void RemovePackage(Package package) {
+			packagesReadyToDeliver.Remove(package);
 			foreach (var cell in cells.Values.Where(cell => cell.package == package)) {
 				cell.package = null;
 			}
 		}
 
-		public void SetPackage(IEnumerable<Vector2Int> coordinatesToOccupy, Package package) {
+		public void AddPackage(IEnumerable<Vector2Int> coordinatesToOccupy, Package package) {
+			if (!packagesReadyToDeliver.Contains(package)) packagesReadyToDeliver.Add(package);
 			foreach (var coordinates in coordinatesToOccupy) {
 				Assert.IsTrue(cells.ContainsKey(coordinates));
 				Assert.IsFalse(cells[coordinates].package);
@@ -163,5 +167,16 @@ namespace LD54.Data {
 		}
 
 		public ISet<Vector2Int> GetAllCellsContainingPackage(Package package) => cells.Where(t => t.Value.package == package).Select(t => t.Key).ToSet();
+
+		public bool TryGetPackageToBeDelivered(out Package packageToDeliver) {
+			packageToDeliver = null;
+			var biggestPackage = packagesReadyToDeliver.MaxOrDefault(t => t.shape.shapeCellCount);
+			for (var i = 0; !packageToDeliver && i < packagesReadyToDeliver.Count; ++i) {
+				if (i == packagesReadyToDeliver.Count - 1 || Random.value < .5f + .3f * packagesReadyToDeliver[i].shapeCellSize / biggestPackage) {
+					packageToDeliver = packagesReadyToDeliver[i];
+				}
+			}
+			return packageToDeliver;
+		}
 	}
 }

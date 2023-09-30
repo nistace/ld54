@@ -16,6 +16,7 @@ public class PackageSpawner : MonoBehaviour {
 
 	private float nextSpawnProgress { get; set; }
 	private HashSet<Package> spawnablePackages { get; } = new HashSet<Package>();
+	private List<Package> nextSpawns { get; } = new List<Package>();
 	private Dictionary<Package, List<Package>> pool { get; } = new Dictionary<Package, List<Package>>();
 	private Dictionary<Package, Package> spawnedAndActive { get; } = new Dictionary<Package, Package>();
 
@@ -42,7 +43,16 @@ public class PackageSpawner : MonoBehaviour {
 
 	[ContextMenu("Spawn Random")]
 	public void SpawnRandom() {
-		var prefab = spawnablePackages.Random();
+		if (spawnablePackages.Count == 0) return;
+		Debug.Log($"Spawn {Time.time:0.00}");
+		if (nextSpawns.Count == 0) {
+			nextSpawns.AddRange(spawnablePackages);
+			nextSpawns.Sort(_ => Random.value);
+		}
+
+		var prefab = nextSpawns[0];
+		nextSpawns.RemoveAt(0);
+
 		if (!pool.ContainsKey(prefab)) pool.Add(prefab, new List<Package>());
 		if (pool[prefab].Count == 0) pool[prefab].Add(Instantiate(prefab, _poolParent));
 
@@ -55,6 +65,8 @@ public class PackageSpawner : MonoBehaviour {
 		spawned.transform.position = spawnAreaCenter + spawnOffset;
 		spawned.transform.rotation = Quaternion.Euler(0, Random.value * 360, 0);
 		spawned.rigidbody.velocity = spawnForceVector * Random.Range(spawnMinForce, spawnMaxForce);
+		spawned.transform.localScale = Vector3.one;
+		spawned.locked = false;
 	}
 
 	private void Update() {

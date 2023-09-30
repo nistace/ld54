@@ -8,5 +8,7 @@ namespace LD54.Data {
 
 		public PackageShape shape => _shape;
 		public PackageInWaterProps inWater => _inWater;
+		public int shapeSize => _shape.shapeCellCount;
+
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NiUtils.Extensions;
 using UnityEngine;
 
@@ -16,6 +17,18 @@ namespace LD54.Data {
 		private Dictionary<int, PackageShape> shapeRotations { get; } = new Dictionary<int, PackageShape>();
 		public int width => lines.Length > 0 ? lines[0].size : 0;
 		public int length => lines.Length;
+		public int shapeCellCount => lines.Sum(t => t.occupiedCellCount);
+
+		private void CreateAllRotations() {
+			if (shapeRotations.Count == 0) {
+				shapeRotations.Add(0, this);
+				for (var i = 1; i < 4; ++i)
+					shapeRotations.Add(i, shapeRotations[i - 1].CreateClockwiseRotation());
+				for (var i = 1; i < 4; ++i)
+				for (var j = 1; j < 4; ++j)
+					shapeRotations[i].shapeRotations.Add(j, shapeRotations[(j + i) % 4]);
+			}
+		}
 
 		private PackageShape CreateClockwiseRotation() {
 			var rotatedShape = new PackageShape { lines = width.CreateArray(_ => new Line(length)) };
@@ -33,14 +46,7 @@ namespace LD54.Data {
 			var positiveTimesClockwise = timesClockwise;
 			while (positiveTimesClockwise < 0) positiveTimesClockwise += 4;
 			positiveTimesClockwise %= 4;
-			if (shapeRotations.Count == 0) {
-				shapeRotations.Add(0, this);
-				for (var i = 1; i < 4; ++i)
-					shapeRotations.Add(i, shapeRotations[i - 1].CreateClockwiseRotation());
-				for (var i = 1; i < 4; ++i)
-				for (var j = 1; j < 4; ++j)
-					shapeRotations[i].shapeRotations.Add(j, shapeRotations[(j + i) % 4]);
-			}
+			if (shapeRotations.Count == 0) CreateAllRotations();
 			return shapeRotations[positiveTimesClockwise];
 		}
 
@@ -56,6 +62,7 @@ namespace LD54.Data {
 			}
 
 			public int size => cells.Length;
+			public int occupiedCellCount => cells.Count(t => t);
 		}
 	}
 }

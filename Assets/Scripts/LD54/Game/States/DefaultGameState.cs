@@ -36,7 +36,7 @@ namespace LD54.Game {
 
 		private void HandleInteract(InputAction.CallbackContext obj) {
 			if (hitInteractable == null) return;
-			if (hitInteractable is Package package) {
+			if (hitInteractable is Package { locked: false } package) {
 				PlacePackageGameState.state.Init(package);
 				ChangeState(PlacePackageGameState.state);
 			}
