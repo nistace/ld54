@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bac0dd7c23594b3881bac5625b4a20c7, type: 3}
+  m_Name: StorageCellData
+  m_EditorClassIdentifier: 
+  _defaultPositionMaterial: {fileID: 2100000, guid: 0e0509944a804624eb02bcd37e108841, type: 2}
+  _validPositionMaterial: {fileID: 2100000, guid: bcf37f49e27623a4a958ab5980655b65, type: 2}
+  _invalidPositionMaterial: {fileID: 2100000, guid: d78dcaa1f40fb5041bb2d21ca04b397b, type: 2}
