@@ -22,8 +22,8 @@ namespace LD54Editor.Data {
 			EditorGUI.LabelField(new Rect(position.x + position.width * .4f, position.y, position.width * .2f, EditorGUIUtility.singleLineHeight), "x",
 				new GUIStyle { alignment = TextAnchor.MiddleCenter });
 			var newLength = EditorGUI.IntField(new Rect(position.x + position.width * .6f, position.y, position.width * .4f, EditorGUIUtility.singleLineHeight), length);
-			newWidth = Mathf.Clamp(newWidth, 1, 5);
-			newLength = Mathf.Clamp(newLength, 1, 5);
+			newWidth = Mathf.Clamp(newWidth, 1, 10);
+			newLength = Mathf.Clamp(newLength, 1, 10);
 			if (width != newWidth || length != newLength) {
 				ResizeShape(property, newWidth, newLength);
 			}
@@ -33,7 +33,7 @@ namespace LD54Editor.Data {
 
 			for (var x = 0; x < width; ++x)
 			for (var y = 0; y < length; ++y) {
-				var cellPropertyPosition = new Rect(position.x + EditorGUIUtility.singleLineHeight * x, position.y + EditorGUIUtility.singleLineHeight * (y + 1), EditorGUIUtility.singleLineHeight,
+				var cellPropertyPosition = new Rect(position.x + EditorGUIUtility.singleLineHeight * x, position.y + EditorGUIUtility.singleLineHeight * (length - y), EditorGUIUtility.singleLineHeight,
 					EditorGUIUtility.singleLineHeight);
 				var cellProperty = property.FindPropertyRelative("lines").GetArrayElementAtIndex(y).FindPropertyRelative("cells").GetArrayElementAtIndex(x);
 				EditorGUI.PropertyField(cellPropertyPosition, cellProperty, GUIContent.none);

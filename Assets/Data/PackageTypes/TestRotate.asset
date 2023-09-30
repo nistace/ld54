@@ -10,19 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec03e37490974932917deb209cb403ec, type: 3}
-  m_Name: Box2x1
+  m_Name: TestRotate
   m_EditorClassIdentifier: 
   _shape:
     lines:
-    - cells: 0101
-  _rotatedOnce:
-    lines:
-    - cells: 01
-    - cells: 01
-  _rotatedTwice:
-    lines:
-    - cells: 0101
-  _rotatedThrice:
-    lines:
-    - cells: 01
-    - cells: 01
+    - cells: 00000101000101
+    - cells: 01000000000101
+    - cells: 01000001000000
+    - cells: 00000000010000

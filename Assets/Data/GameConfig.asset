@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultStateHitLayerMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 704
   _placementStateHitLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 144
   _placementStatePackageYOffset: 1.5
-  _packageSmoothPosition: 0.2
-  _packageSmoothRotation: 0.2
+  _packageSmoothPosition: 0.1
+  _packageSmoothRotation: 0.1
   _minDelayBetweenPackageRotations: 0.1
+  _placementDelayBeforeInteraction: 0.1

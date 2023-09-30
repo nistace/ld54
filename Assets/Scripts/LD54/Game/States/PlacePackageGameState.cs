@@ -1,8 +1,9 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using LD54.Data;
 using LD54.Inputs;
 using NiUtils.Extensions;
-using NiUtils.StaticUtils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,14 +11,23 @@ namespace LD54.Game {
 	public class PlacePackageGameState : GameState {
 		public static PlacePackageGameState state { get; } = new PlacePackageGameState();
 
+		private enum InteractionEffect {
+			Forbidden = 0,
+			DropInStorage = 1,
+			DropOutsideOfStorage = 2
+		}
+
 		private Package package { get; set; }
 		private Vector3 initialPosition { get; set; }
+		private ISet<Vector2Int> initialPositionOccupiedStorageCells { get; set; } = new HashSet<Vector2Int>();
 		private Vector3 packageDesiredPosition { get; set; }
 		private Vector3 packageDesiredForward { get; set; }
 		private Vector3 positionVelocity;
 		private Vector3 rotationVelocity;
 		private float stateStartTime { get; set; }
 		private float lastRotationTime { get; set; }
+		private ISet<Vector2Int> hoveredCellCoordinates { get; set; } = new HashSet<Vector2Int>();
+		private InteractionEffect interactionEffect { get; set; }
 
 		private PlacePackageGameState() { }
 
@@ -28,6 +38,8 @@ namespace LD54.Game {
 
 		protected override void Enable() {
 			if (!package) return;
+			initialPositionOccupiedStorageCells = Storage.current.GetAllCellsContainingPackage(package);
+			Storage.current.RemovePackage(package);
 			package.rigidbody.isKinematic = true;
 			packageDesiredPosition = package.transform.position.With(y: config.placementStatePackageYOffset);
 			packageDesiredForward = SnapForwardToAllowedAngle(package.transform.forward);
@@ -52,14 +64,26 @@ namespace LD54.Game {
 
 		protected override IEnumerator Continue() {
 			while (currentState == this) {
+				interactionEffect = InteractionEffect.Forbidden;
 				if (IsStartDelayPassed()) {
 					var cursorRay = StorageCamera.currentCamera.ScreenPointToRay(GameInputs.controls.Player.Aim.ReadValue<Vector2>());
-					if (Physics.Raycast(cursorRay, out var hitInfo, 20, config.placementStateHitLayerMask)) {
-						packageDesiredPosition = hitInfo.point.With(y: config.placementStatePackageYOffset);
-					}
-					var coordinates = Storage.current.WorldPositionToCoordinates(packageDesiredPosition);
-					if (Storage.current.IsCoordinatesInStorageArea(coordinates)) {
-						Storage.current.MarkCell(coordinates, StorageCellData.MaterialType.ValidPosition);
+					if (Physics.Raycast(cursorRay, out var hitInfo, 50, config.placementStateHitLayerMask)) {
+						packageDesiredPosition = Storage.SnapShapeCenterToGrid(hitInfo.point, package.shape) + Vector3.up * config.placementStatePackageYOffset;
+						var newlyHoveredCellCoordinates = Storage.current.GetHoveredCellCoordinates(packageDesiredPosition, package.shape, out var anyInGrid).ToSet();
+						Storage.current.UnmarkAllCells();
+						if (!anyInGrid) {
+							interactionEffect = InteractionEffect.DropOutsideOfStorage;
+						}
+						else {
+							var hasUnavailableCells = false;
+							foreach (var hoveredCell in newlyHoveredCellCoordinates) {
+								var cellIsAvailable = Storage.current.IsAvailable(hoveredCell);
+								hasUnavailableCells |= !cellIsAvailable;
+								Storage.current.MarkCell(hoveredCell, cellIsAvailable ? StorageCellData.MaterialType.ValidPosition : StorageCellData.MaterialType.InvalidPosition);
+							}
+							hoveredCellCoordinates = newlyHoveredCellCoordinates;
+							interactionEffect = hasUnavailableCells ? InteractionEffect.Forbidden : InteractionEffect.DropInStorage;
+						}
 					}
 				}
 				package.transform.position = Vector3.SmoothDamp(package.transform.position, packageDesiredPosition, ref positionVelocity, config.packageSmoothPosition);
@@ -88,7 +112,14 @@ namespace LD54.Game {
 			ChangeState(DefaultGameState.state);
 		}
 
-		private static void HandlePlace(InputAction.CallbackContext obj) {
+		private void HandlePlace(InputAction.CallbackContext obj) {
+			if (interactionEffect == InteractionEffect.Forbidden) {
+				Debug.Log("Nope");
+				return;
+			}
+			if (interactionEffect == InteractionEffect.DropInStorage) {
+				Storage.current.SetPackage(hoveredCellCoordinates, package);
+			}
 			ChangeState(DefaultGameState.state);
 		}
 	}

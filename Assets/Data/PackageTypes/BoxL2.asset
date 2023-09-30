@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shape:
     lines:
-    - cells: 0100
     - cells: 0101
+    - cells: 0100

@@ -2,7 +2,6 @@
 using LD54.Data;
 using LD54.Inputs;
 using NiUtils.Extensions;
-using NiUtils.StaticUtils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,19 +11,20 @@ namespace LD54.Game {
 
 		private DefaultGameState() { }
 
-		private Transform currentlyHitObject { get; set; }
+		private IInteractable hitInteractable { get; set; }
 
-		protected override void Enable() { }
+		protected override void Enable() {
+			Storage.current.SetExtensionAreasVisible(true);
+		}
 
-		protected override void Disable() { }
+		protected override void Disable() {
+			Storage.current.SetExtensionAreasVisible(false);
+		}
 
 		protected override IEnumerator Continue() {
 			while (currentState == this) {
 				var cursorRay = StorageCamera.currentCamera.ScreenPointToRay(GameInputs.controls.Player.Aim.ReadValue<Vector2>());
-				var newlyHitObject = Physics.Raycast(cursorRay, out var hitInfo, 20, config.defaultStateHitLayerMask) ? hitInfo.collider.transform.root : null;
-				if (newlyHitObject != currentlyHitObject) {
-					currentlyHitObject = newlyHitObject;
-				}
+				hitInteractable = Physics.Raycast(cursorRay, out var hitInfo, 50, config.defaultStateHitLayerMask) ? hitInfo.collider.GetComponentInParent<IInteractable>() : null;
 				yield return null;
 			}
 		}
@@ -34,10 +34,14 @@ namespace LD54.Game {
 		}
 
 		private void HandleInteract(InputAction.CallbackContext obj) {
-			if (!currentlyHitObject) return;
-			if (currentlyHitObject.TryGetComponent<Package>(out var package)) {
+			if (hitInteractable == null) return;
+			if (hitInteractable is Package package) {
 				PlacePackageGameState.state.Init(package);
 				ChangeState(PlacePackageGameState.state);
+			}
+			else if (hitInteractable is ExtensionArea extensionArea) {
+				Storage.current.IncreaseWithExtensionArea(extensionArea);
+				Storage.current.SetExtensionAreasVisible(true);
 			}
 		}
 	}
