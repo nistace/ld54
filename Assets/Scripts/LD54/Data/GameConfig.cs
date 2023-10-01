@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using NiUtils.Types;
 using UnityEngine;
 
 namespace LD54.Data {
@@ -12,9 +14,9 @@ namespace LD54.Data {
 		[SerializeField] protected float _packageSmoothRotation = .5f;
 		[SerializeField] protected float _minDelayBetweenPackageRotations = .1f;
 		[SerializeField] protected float _placementDelayBeforeInteraction = .1f;
-		[SerializeField] protected AnimationCurve _spawnPerSecondCurve = AnimationCurve.Linear(0, 0, 1, 1);
-		[SerializeField] protected Copter _copter = new Copter();
-		[SerializeField] protected Package[] _spawnablePackages;
+		[SerializeField] protected int _creditsOnStart = 2;
+		[SerializeField] protected Order _order = new Order();
+		[SerializeField] protected Collector _collector = new Collector();
 
 		public LayerMask defaultStateHitLayerMask => _defaultStateHitLayerMask;
 		public LayerMask placementStateHitLayerMask => _placementStateHitLayerMask;
@@ -23,11 +25,41 @@ namespace LD54.Data {
 		public float packageSmoothRotation => _packageSmoothRotation;
 		public float minDelayBetweenPackageRotations => _minDelayBetweenPackageRotations;
 		public float placementDelayBeforeInteraction => _placementDelayBeforeInteraction;
-		public AnimationCurve spawnPerSecondCurve => _spawnPerSecondCurve;
-		public IEnumerable<Package> spawnablePackages => _spawnablePackages;
-		public Copter copter => _copter;
+		public int creditsOnStart => _creditsOnStart;
+		public Collector collector => _collector;
+		public Order order => _order;
 
-		[Serializable] public class Copter {
+		[Serializable] public class Order {
+			[SerializeField] protected AnimationCurve _newOrderCurve = AnimationCurve.Linear(0, 0, 1, 1);
+			[SerializeField] protected Color _uiCounterValidColor = Color.green;
+			[SerializeField] protected Color _uiCounterInvalidColor = Color.gray;
+			[SerializeField] protected Color _uiExpiredOrderColor = Color.gray;
+			[SerializeField] protected FloatRange _uiExpiredMoveDownOffset = new FloatRange(.5f, 1);
+			[SerializeField] protected FloatRange _uiExpiredRotateMaxAngle = new FloatRange(15, 30);
+			[SerializeField] protected float _uiExpiredAnimationDuration = .5f;
+			[SerializeField] protected UnlockedOrderType[] possibleOrders;
+
+			public Color uiCounterValidColor => _uiCounterValidColor;
+			public Color uiCounterInvalidColor => _uiCounterInvalidColor;
+			public Color uiExpiredOrderColor => _uiExpiredOrderColor;
+			public FloatRange uiExpiredMoveDownOffset => _uiExpiredMoveDownOffset;
+			public FloatRange uiExpiredRotateMaxAngle => _uiExpiredRotateMaxAngle;
+			public float uiExpiredAnimationDuration => _uiExpiredAnimationDuration;
+
+			public float GetNewOrderProgress(float time) => _newOrderCurve.Evaluate(time) * Time.deltaTime;
+			public IEnumerable<OrderType> GetUnlockedTypesAfterTime(float time) => possibleOrders.Where(t => t.time <= time).Select(t => t.type);
+			public IEnumerable<OrderType> GetAllTypes() => possibleOrders.Select(t => t.type);
+
+			[Serializable] public class UnlockedOrderType {
+				[SerializeField] protected OrderType _type;
+				[SerializeField] protected float _time;
+
+				public OrderType type => _type;
+				public float time => _time;
+			}
+		}
+
+		[Serializable] public class Collector {
 			[SerializeField] protected AnimationCurve _delaysBetweenTravels;
 			[SerializeField] protected Vector3 _origin;
 			[SerializeField] protected float _travelDuration = 2;
