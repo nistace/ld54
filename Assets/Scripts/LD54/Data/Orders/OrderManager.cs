@@ -29,7 +29,7 @@ namespace LD54.Data {
 		}
 
 		private void Update() {
-			if (!GameSessionData.isPlaying) return;
+			if (!GameSessionData.isPlaying || GameSessionData.current.gameOver) return;
 			UpdateNextOrder();
 			UpdateOrdersBeingDelivered();
 			UpdateExpirationTimes();
@@ -60,8 +60,7 @@ namespace LD54.Data {
 
 		private void UpdateNextOrder() {
 			nextOrderProgress += GameSessionData.config.order.GetNewOrderProgress(GameSessionData.gameTime);
-			if (activeOrders.Count > _maxOrderCount) return;
-			while (activeOrders.Count == 0 || nextOrderProgress > 1) {
+			while (activeOrders.Count + ordersBeingDelivered.Count < _maxOrderCount && (activeOrders.Count == 0 || nextOrderProgress > 1)) {
 				CreateNewOrder();
 				nextOrderProgress = 0;
 			}
@@ -74,7 +73,7 @@ namespace LD54.Data {
 			}
 			var randomOrderType = nextOrderTypes[0];
 			nextOrderTypes.RemoveAt(0);
-			var newOrder = new Order(randomOrderType);
+			var newOrder = new Order(randomOrderType, 1 + activeOrders.Count(t => t.isExpired) * .5f);
 			activeOrders.Add(newOrder);
 			PackageSpawner.current.SpawnForOrder(newOrder.type);
 			onOrderCreated.Invoke(newOrder);
@@ -90,5 +89,7 @@ namespace LD54.Data {
 			order.MarkAsBeingDelivered();
 			ordersBeingDelivered.Add(order, packagesToCollect.ToList());
 		}
+
+		public bool IsFullWithExpired() => activeOrders.Count == _maxOrderCount && activeOrders.All(t => t.isExpired);
 	}
 }

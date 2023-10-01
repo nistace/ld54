@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using LD54.Data;
+using NiUtils.Audio;
 using NiUtils.Extensions;
 using UnityEngine;
 
@@ -43,6 +44,7 @@ public class Collector : MonoBehaviour {
 			var magnetFlatOrigin = _magnet.position.With(y: 0);
 			var magnetFlatTarget = packageToTake.grabAnchorPosition.With(y: 0);
 			var packageGrabbed = false;
+			AudioManager.Sfx.PlayRandom("collect.enter");
 			for (var lerp = 0f; lerp < 1; lerp += Time.deltaTime / data.magnetAnimationDuration) {
 				var magnetLerp = data.magnetYPositionCurve.Evaluate(lerp);
 				var magnetY = Mathf.Lerp(data.magnetOriginHeight, packageToTake.grabAnchorPosition.y, magnetLerp);
@@ -52,10 +54,11 @@ public class Collector : MonoBehaviour {
 					packageToTake.transform.SetParent(_magnet);
 					Storage.current.RemovePackage(packageToTake);
 					packageGrabbed = true;
+					AudioManager.Sfx.PlayRandom("interact");
 				}
 				yield return null;
 			}
-			
+
 			packageToTake.MarkAsDelivered();
 			yield return null;
 		}

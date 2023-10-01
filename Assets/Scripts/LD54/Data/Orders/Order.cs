@@ -19,14 +19,17 @@ namespace LD54.Data {
 		public OrderType type => _type;
 		public float expirationProgress { get; private set; }
 		public bool isActive => state == State.Active;
+		public bool isExpired => state == State.Expired;
+		public float speedCoefficient { get; }
 
 		public Order() { }
 
 		public Event onExpired { get; } = new Event();
 
-		public Order(OrderType type) {
+		public Order(OrderType type, float speedCoefficient) {
 			_type = type;
 			state = State.Active;
+			this.speedCoefficient = speedCoefficient;
 		}
 
 		public bool IsReadyToBeDelivered() => state == State.Active && OrderStorageObserver.IsStorageReadyToDeliver(_type);
@@ -37,7 +40,7 @@ namespace LD54.Data {
 
 		public void ProgressOnExpiration() {
 			if (expirationProgress >= 1) return;
-			expirationProgress += Time.deltaTime / _type.expirationTime;
+			expirationProgress += speedCoefficient * Time.deltaTime / _type.expirationTime;
 			if (expirationProgress >= 1) {
 				state = State.Expired;
 				onExpired.Invoke(this);

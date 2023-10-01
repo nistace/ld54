@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64599dd65e6f42c5ac66c496c203301d, type: 3}
+  m_Name: New Audio Clip Library
+  m_EditorClassIdentifier: 
+  _id:
+    _value: 1
+  _defaultItem: {fileID: 0}
+  _orderIndex: 0
+  _itemNames:
+  - music.inflatable
+  - button.0
+  - button.1
+  - button.2
+  - button.3
+  - collect.enter.0
+  - collect.enter.1
+  - collect.exit.0
+  - interact.0
+  - interact.1
+  - interact.2
+  - interact.3
+  - error.0
+  _items:
+  - {fileID: 8300000, guid: 95c7356591baa684499983cd9e09e32e, type: 3}
+  - {fileID: 8300000, guid: d0f1cb33b04d9ca44be5e27c020ac222, type: 3}
+  - {fileID: 8300000, guid: 0e20a28e199d256498067882b1b8db37, type: 3}
+  - {fileID: 8300000, guid: 99e8ee48784045e4a985b3eae3eed66c, type: 3}
+  - {fileID: 8300000, guid: 9815595807e17974597e39a1af97a160, type: 3}
+  - {fileID: 8300000, guid: 7ed701a5d8a0f2b4cacf67bd54c7af00, type: 3}
+  - {fileID: 8300000, guid: 0879dfba4e2c4a14498cbd89701d7b8c, type: 3}
+  - {fileID: 8300000, guid: da92b80880e652743a11734ad3969319, type: 3}
+  - {fileID: 8300000, guid: 17c625782a41ebb47950a1c72035a5d1, type: 3}
+  - {fileID: 8300000, guid: 8d2bb0c6f22de6647809e9596e4bacb1, type: 3}
+  - {fileID: 8300000, guid: 46aff93baa10bf34e8ae6557240d6c81, type: 3}
+  - {fileID: 8300000, guid: 59853798ab0ca0943ad6776846c95723, type: 3}
+  - {fileID: 8300000, guid: 7d5b5f9f9643aa84a8e947e3fd725e1d, type: 3}

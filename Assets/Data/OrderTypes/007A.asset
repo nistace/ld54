@@ -19,6 +19,6 @@ MonoBehaviour:
     _amount: 1
   - _package: {fileID: 313497245976870673, guid: 5edd4d8c20f4444468a9e23c551be41f, type: 3}
     _amount: 1
-  _expirationTime: 25
+  _expirationTime: 23
   _points: 14
   _credits: 1

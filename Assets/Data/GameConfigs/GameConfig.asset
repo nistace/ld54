@@ -33,7 +33,7 @@ MonoBehaviour:
         value: 0.1
         inSlope: 0
         outSlope: 0
-        tangentMode: 34
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0
         outWeight: 0.33333334
@@ -41,19 +41,19 @@ MonoBehaviour:
         time: 300
         value: 0.1
         inSlope: 0
-        outSlope: 0.0006697395
-        tangentMode: 1
+        outSlope: 0
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.9973753
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 600
-        value: 0.3
-        inSlope: 0.0006666667
-        outSlope: 0.0006666667
-        tangentMode: 34
+        time: 1200
+        value: 1
+        inSlope: 0.0018642497
+        outSlope: 0.0018642497
+        tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
+        inWeight: 0.034120686
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -72,33 +72,35 @@ MonoBehaviour:
     - _type: {fileID: 11400000, guid: 8e010363d554eee4dadedb42c64a35bb, type: 2}
       _time: 0
     - _type: {fileID: 11400000, guid: 9b642d420a89940478c0d7102bf7482a, type: 2}
-      _time: 5
+      _time: 10
     - _type: {fileID: 11400000, guid: 1267fdc26a7862b4ba9f041b8d5a2eea, type: 2}
-      _time: 15
-    - _type: {fileID: 11400000, guid: 857be6151f49e8245bd2ce1d7d12f714, type: 2}
+      _time: 20
+    - _type: {fileID: 11400000, guid: 04655ecfdc206334eab12cc6be116795, type: 2}
       _time: 30
+    - _type: {fileID: 11400000, guid: 857be6151f49e8245bd2ce1d7d12f714, type: 2}
+      _time: 40
     - _type: {fileID: 11400000, guid: 1660ab8c0a9ce06429ae087814eaa2ff, type: 2}
-      _time: 45
-    - _type: {fileID: 11400000, guid: b4961f2d5d22e5a47b9e3f05bdc6dd51, type: 2}
       _time: 60
-    - _type: {fileID: 11400000, guid: b20fa9e75d338464ca53afe5b5134826, type: 2}
-      _time: 75
-    - _type: {fileID: 11400000, guid: aed33691b56d24240ad7248c1e265f34, type: 2}
+    - _type: {fileID: 11400000, guid: b4961f2d5d22e5a47b9e3f05bdc6dd51, type: 2}
       _time: 90
-    - _type: {fileID: 11400000, guid: e9dd97d1810e448439270732d74be79b, type: 2}
+    - _type: {fileID: 11400000, guid: b20fa9e75d338464ca53afe5b5134826, type: 2}
       _time: 120
-    - _type: {fileID: 11400000, guid: afa2be233d448dc479a788fca3a7ea33, type: 2}
+    - _type: {fileID: 11400000, guid: aed33691b56d24240ad7248c1e265f34, type: 2}
       _time: 150
-    - _type: {fileID: 11400000, guid: 122e7a3e8bc768b4a8e7573daea87b05, type: 2}
+    - _type: {fileID: 11400000, guid: e9dd97d1810e448439270732d74be79b, type: 2}
       _time: 180
-    - _type: {fileID: 11400000, guid: bc4e0fc495b205a428e6775f34e94587, type: 2}
-      _time: 210
-    - _type: {fileID: 11400000, guid: 8512b5dcc0d413f4e93ddb2312724b19, type: 2}
+    - _type: {fileID: 11400000, guid: afa2be233d448dc479a788fca3a7ea33, type: 2}
       _time: 240
-    - _type: {fileID: 11400000, guid: 78a50f1d02cbdb045819b5d081ccdca5, type: 2}
-      _time: 270
-    - _type: {fileID: 11400000, guid: f21e9a8b8d1b31349ada22c681284233, type: 2}
+    - _type: {fileID: 11400000, guid: 122e7a3e8bc768b4a8e7573daea87b05, type: 2}
       _time: 300
+    - _type: {fileID: 11400000, guid: bc4e0fc495b205a428e6775f34e94587, type: 2}
+      _time: 360
+    - _type: {fileID: 11400000, guid: 8512b5dcc0d413f4e93ddb2312724b19, type: 2}
+      _time: 420
+    - _type: {fileID: 11400000, guid: 78a50f1d02cbdb045819b5d081ccdca5, type: 2}
+      _time: 480
+    - _type: {fileID: 11400000, guid: f21e9a8b8d1b31349ada22c681284233, type: 2}
+      _time: 600
   _collector:
     _delaysBetweenTravels:
       serializedVersion: 2

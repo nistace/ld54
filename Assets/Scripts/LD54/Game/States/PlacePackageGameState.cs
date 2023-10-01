@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using LD54.Data;
 using LD54.Inputs;
+using NiUtils.Audio;
 using NiUtils.Extensions;
 using NiUtils.GameStates;
 using UnityEngine;
@@ -116,8 +117,7 @@ namespace LD54.Game {
 
 		private void HandlePlace(InputAction.CallbackContext obj) {
 			if (interactionEffect == InteractionEffect.Forbidden) {
-				// TODO
-				Debug.Log("Nope");
+				AudioManager.Sfx.PlayRandom("error");
 				return;
 			}
 			package.transform.position = packageDesiredPosition;
@@ -125,6 +125,7 @@ namespace LD54.Game {
 			if (interactionEffect == InteractionEffect.DropInStorage) {
 				Storage.current.AddPackage(hoveredCellCoordinates, package);
 			}
+			AudioManager.Sfx.PlayRandom("interact");
 			ChangeState(DefaultGameState.state);
 		}
 	}

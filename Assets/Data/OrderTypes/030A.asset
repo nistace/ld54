@@ -12,7 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d187da3af94bbd9b976fd5fd954703, type: 3}
   m_Name: 030A
   m_EditorClassIdentifier: 
-  _amounts: []
-  _expirationTime: 40
+  _amounts:
+  - _package: {fileID: 313497245976870673, guid: 8ca879eb8d1dc664aa2adcf183489071, type: 3}
+    _amount: 1
+  - _package: {fileID: 313497245976870673, guid: 9159bea1810bdf14fbc6108f34ecfdfb, type: 3}
+    _amount: 2
+  - _package: {fileID: 313497245976870673, guid: 1c465303602654b42afb2ca16b329435, type: 3}
+    _amount: 1
+  - _package: {fileID: 313497245976870673, guid: f538df2371eaa4743b64a287a9e99915, type: 3}
+    _amount: 1
+  - _package: {fileID: 313497245976870673, guid: c9b867a298b1ccd4fbb9cc3c8e7373b2, type: 3}
+    _amount: 2
+  - _package: {fileID: 313497245976870673, guid: 5edd4d8c20f4444468a9e23c551be41f, type: 3}
+    _amount: 1
+  _expirationTime: 36
   _points: 240
   _credits: 1

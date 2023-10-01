@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using LD54.Data;
 using LD54.Inputs;
+using NiUtils.Audio;
 using NiUtils.Extensions;
 using NiUtils.GameStates;
 using UnityEngine;
@@ -25,7 +26,10 @@ namespace LD54.Game {
 
 		protected override IEnumerator Continue() {
 			while (currentState == this) {
-				if (EventSystem.current.IsPointerOverGameObject()) {
+				if (OrderManager.current.IsFullWithExpired()) {
+					ChangeState(GameOverState.state);
+				}
+				else if (EventSystem.current.IsPointerOverGameObject()) {
 					hitInteractable = null;
 				}
 				else {
@@ -50,15 +54,18 @@ namespace LD54.Game {
 			if (hitInteractable is PackageReserve packageReserve) {
 				PlacePackageGameState.state.Init(packageReserve.Spawn());
 				ChangeState(PlacePackageGameState.state);
+				AudioManager.Sfx.PlayRandom("interact");
 			}
 			else if (hitInteractable is Package { state: Package.State.Default } package) {
 				PlacePackageGameState.state.Init(package);
 				ChangeState(PlacePackageGameState.state);
+				AudioManager.Sfx.PlayRandom("interact");
 			}
 			else if (hitInteractable is ExtensionArea extensionArea) {
 				GameSessionData.current.PayCredits(extensionArea.cost);
 				Storage.current.IncreaseWithExtensionArea(extensionArea);
 				Storage.current.SetExtensionAreasVisible(true);
+				AudioManager.Sfx.Play("button.3");
 			}
 		}
 	}

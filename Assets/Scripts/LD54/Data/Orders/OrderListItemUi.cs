@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NiUtils.Extensions;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace LD54.Data {
 	public class OrderListItemUi : MonoBehaviour {
@@ -26,6 +28,10 @@ namespace LD54.Data {
 
 		public Order.Event onSendOrderClicked { get; } = new Order.Event();
 
+		private void Awake() {
+			packageImagePool.RemoveWhere(t => !t);
+		}
+
 		public void Setup(Order order) {
 			this.order?.onExpired.RemoveListener(HandleOrderExpired);
 			this.order = order;
@@ -40,7 +46,6 @@ namespace LD54.Data {
 		}
 
 		private void HandleOrderExpired(Order order) {
-			if (this.order != order) return;
 			Clean();
 			StartCoroutine(ExpireBackground());
 		}
@@ -77,6 +82,7 @@ namespace LD54.Data {
 		}
 
 		private void HandleStorageStateChanged() {
+			if (order is not { isActive: true }) return;
 			RefreshPackageImagesState();
 			_sendButton.interactable = order != null && order.IsReadyToBeDelivered();
 		}
@@ -100,8 +106,8 @@ namespace LD54.Data {
 
 		private void RefreshPackageImagesState() {
 			foreach (var package in packageImages.Keys) {
-				var readyCount = order.GetReadyPackageCount(package);
-				var targetCount = order.GetRequiredAmount(package);
+				var readyCount = order.isActive ? order.GetReadyPackageCount(package) : 0;
+				var targetCount = order.isActive ? order.GetRequiredAmount(package) : 0;
 				for (var i = 0; i < packageImages[package].Count; ++i) {
 					var packageImage = packageImages[package][i];
 					packageImage.counterText = _useCounters ? $"{readyCount} / {targetCount}" : string.Empty;

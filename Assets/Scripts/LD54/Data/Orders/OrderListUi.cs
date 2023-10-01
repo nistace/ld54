@@ -17,9 +17,11 @@ namespace LD54.Data {
 		public void Start() {
 			orderedItemsUis.AddRange(_itemParent.GetComponentsInChildren<OrderListItemUi>(true));
 			while (orderedItemsUis.Count < _orderManager.maxOrderCount) orderedItemsUis.Add(Instantiate(_itemPrefab, _itemParent));
-			foreach (var itemUi in orderedItemsUis) {
+			for (var index = 0; index < orderedItemsUis.Count; index++) {
+				var itemUi = orderedItemsUis[index];
 				itemUi.onSendOrderClicked.AddListenerOnce(onSendOrderClicked.Invoke);
 				itemUi.Disable();
+				itemUi.gameObject.SetActive(index < _orderManager.maxOrderCount);
 			}
 			uisPerOrder.Clear();
 
@@ -31,7 +33,7 @@ namespace LD54.Data {
 
 		private void HandleNewOrder(Order order) {
 			if (uisPerOrder.ContainsKey(order)) return;
-			var slot = orderedItemsUis.FirstOrDefault(t => !t.enabled);
+			var slot = orderedItemsUis.FirstOrDefault(t => t.gameObject.activeInHierarchy && !t.enabled);
 			if (!slot) return;
 			slot.Setup(order);
 			uisPerOrder.Add(order, slot);
