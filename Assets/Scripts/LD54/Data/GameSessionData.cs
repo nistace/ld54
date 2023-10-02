@@ -3,8 +3,16 @@ using UnityEngine;
 
 namespace LD54.Data {
 	public class GameSessionData {
-		public static GameSessionData current { get; private set; }
+		public enum TutoStep {
+			Skipped = 0,
+			First = 1,
+			Second = 2,
+			Third = 3,
+			Done = 3
+		}
 
+		public static GameSessionData current { get; private set; }
+		public static bool tutoToBePlayed { get; set; } = true;
 		public static bool isPlaying => current is { gameStartedTime: >= 0 };
 		public static float gameTime => isPlaying ? (current.gameOver ? current.gameEndedTime : Time.time) - current.gameStartedTime : 0;
 		public static GameConfig config { get; private set; }
@@ -17,10 +25,13 @@ namespace LD54.Data {
 		public bool gameOver => gameEndedTime > 0;
 		public int score { get; private set; }
 		public int credits { get; private set; }
+		public TutoStep tutoStep { get; set; }
 
 		public static void CreateNew(GameConfig gameConfig) {
 			current = new GameSessionData { credits = gameConfig.creditsOnStart };
 			config = gameConfig;
+			current.tutoStep = tutoToBePlayed ? TutoStep.First : TutoStep.Skipped;
+			if (!tutoToBePlayed) current.StartGame();
 		}
 
 		public void StartGame() => gameStartedTime = Time.time;

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3e61009e64151c54e83b95c49dfd5fd6
+guid: d68afa06395763b45aa2ece290abcbc2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 500
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -67,7 +67,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -129,34 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ui_0
+      name: shark
       rect:
         serializedVersion: 2
-        x: 1720
-        y: 1128
-        width: 653
-        height: 655
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 200, y: 200, z: 200, w: 200}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 02d4a95ce6a897e43ab8992414d70d1a
-      internalID: 160727824
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ui_1
-      rect:
-        serializedVersion: 2
-        x: 1815
-        y: 979
-        width: 466
-        height: 29
+        x: 1185
+        y: 781
+        width: 473
+        height: 396
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,176 +143,155 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e311b9229f7cb3d49997dcf888939b23
-      internalID: 644973898
+      spriteID: 561efe2ecccf0474db3c994e942c2de3
+      internalID: -1482269075
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui_2
+      name: duck
+      rect:
+        serializedVersion: 2
+        x: 1429
+        y: 1203
+        width: 187
+        height: 215
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c63e0a83d2a527429c78c8b1a56b47b
+      internalID: 82630693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ball
+      rect:
+        serializedVersion: 2
+        x: 2252
+        y: 1189
+        width: 258
+        height: 270
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 722ee218e174c054c97b93e4fc2a0e9d
+      internalID: 2040321622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buoy
+      rect:
+        serializedVersion: 2
+        x: 1766
+        y: 1084
+        width: 423
+        height: 466
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7085d6f1be4a24a428806bc4130785d1
+      internalID: -1201170565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Seahorse
+      rect:
+        serializedVersion: 2
+        x: 1410
+        y: 1588
+        width: 246
+        height: 306
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dd667a04854f884fbc965f530b6cdb7
+      internalID: 1724334794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flamingo
+      rect:
+        serializedVersion: 2
+        x: 2638
+        y: 1115
+        width: 321
+        height: 516
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8424297827594a54db7029a1f45fec16
+      internalID: 1572782380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starfish
+      rect:
+        serializedVersion: 2
+        x: 2201
+        y: 579
+        width: 540
+        height: 478
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34e744048cd1fed4b94e3c5f37cf8b9b
+      internalID: 1362770539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mallard
       rect:
         serializedVersion: 2
         x: 1771
-        y: 785
-        width: 553
-        height: 110
+        y: 744
+        width: 289
+        height: 206
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df087ae870d3fb14f98b249844ea09fc
-      internalID: 1031344705
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ui_3
-      rect:
-        serializedVersion: 2
-        x: 1881
-        y: 340
-        width: 333
-        height: 333
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cc9fcec60b5d9cf40be4edd9ec25f730
-      internalID: 490543634
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ui_4
-      rect:
-        serializedVersion: 2
-        x: 2364
-        y: 333
-        width: 344
-        height: 344
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 142b9e8b8f885af4a8aa9a1c2e315ad2
-      internalID: 821415965
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ui_5
-      rect:
-        serializedVersion: 2
-        x: 2837
-        y: 1077
-        width: 678
-        height: 344
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5b6e63fbb9fdccb478a98f4c053a4c1c
-      internalID: -2034743119
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ui_6
-      rect:
-        serializedVersion: 2
-        x: 2837
-        y: 712
-        width: 678
-        height: 344
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e3624f0c28fd2c14fb9df3c675e56a29
-      internalID: -675030984
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ui_7
-      rect:
-        serializedVersion: 2
-        x: 2838
-        y: 344
-        width: 678
-        height: 344
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bc43887558d288541ac5697499868597
-      internalID: 1599685150
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ui_8
-      rect:
-        serializedVersion: 2
-        x: 2835
-        y: 1490
-        width: 678
-        height: 344
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 210, y: 0, z: 210, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c570ac3e0be7cf643801e2f57b332db1
-      internalID: -1950829804
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ui_9
-      rect:
-        serializedVersion: 2
-        x: 3597
-        y: 395
-        width: 368
-        height: 230
-      alignment: 9
-      pivot: {x: 0.9157032, y: 0.51039267}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 979b6b289a25eb84a90d440b346c43be
-      internalID: 939516685
+      spriteID: 458a65c978a70c44ba0aecca3e1e03e2
+      internalID: -470596673
       vertices: []
       indices: 
       edges: []
@@ -349,16 +307,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ui_0: 160727824
-      ui_1: 644973898
-      ui_2: 1031344705
-      ui_3: 490543634
-      ui_4: 821415965
-      ui_5: -2034743119
-      ui_6: -675030984
-      ui_7: 1599685150
-      ui_8: -1950829804
-      ui_9: 939516685
+      Seahorse: 1724334794
+      ball: 2040321622
+      buoy: -1201170565
+      duck: 82630693
+      flamingo: 1572782380
+      mallard: -470596673
+      shark: -1482269075
+      starfish: 1362770539
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

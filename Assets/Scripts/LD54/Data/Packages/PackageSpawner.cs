@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using LD54.Data;
 using NiUtils.Extensions;
 using UnityEngine;
@@ -41,6 +42,8 @@ public class PackageSpawner : MonoBehaviour {
 			}
 		}
 	}
+
+	public Package GetAnyActivePackage() => spawnedAndActive.Keys.FirstOrDefault();
 
 	private void Spawn(Package prefab) {
 		if (!pool.ContainsKey(prefab)) pool.Add(prefab, new List<Package>());

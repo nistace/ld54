@@ -29,6 +29,7 @@ namespace LD54.Game {
 		}
 
 		private void HandleNewGameClicked() {
+			GameSessionData.tutoToBePlayed = false;
 			SetListenersEnabled(false);
 			SceneManager.LoadSceneAsync("Game");
 		}

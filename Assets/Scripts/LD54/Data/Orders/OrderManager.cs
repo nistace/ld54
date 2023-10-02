@@ -29,9 +29,9 @@ namespace LD54.Data {
 		}
 
 		private void Update() {
+			UpdateOrdersBeingDelivered();
 			if (!GameSessionData.isPlaying || GameSessionData.current.gameOver) return;
 			UpdateNextOrder();
-			UpdateOrdersBeingDelivered();
 			UpdateExpirationTimes();
 		}
 
@@ -66,7 +66,7 @@ namespace LD54.Data {
 			}
 		}
 
-		private void CreateNewOrder() {
+		private Order CreateNewOrder() {
 			if (nextOrderTypes.Count == 0) {
 				possibleOrderTypes.AddAll(GameSessionData.config.order.GetUnlockedTypesAfterTime(GameSessionData.gameTime));
 				nextOrderTypes.AddRange(possibleOrderTypes.OrderBy(_ => Random.value));
@@ -77,6 +77,7 @@ namespace LD54.Data {
 			activeOrders.Add(newOrder);
 			PackageSpawner.current.SpawnForOrder(newOrder.type);
 			onOrderCreated.Invoke(newOrder);
+			return newOrder;
 		}
 
 		public IReadOnlyList<Order> GetAllActiveOrders() => activeOrders;
@@ -91,5 +92,7 @@ namespace LD54.Data {
 		}
 
 		public bool IsFullWithExpired() => activeOrders.Count == _maxOrderCount && activeOrders.All(t => t.isExpired);
+
+		public Order ForceCreateNewOrder() => CreateNewOrder();
 	}
 }

@@ -6,11 +6,13 @@ using UnityEngine.UI;
 public class MenuUi : MonoBehaviour {
 	private static MenuUi instance { get; set; }
 
+	[SerializeField] protected Button tutorialButton;
 	[SerializeField] protected Button startButton;
 	[SerializeField] protected Slider musicVolumeSlider;
 	[SerializeField] protected Slider sfxVolumeSlider;
 	[SerializeField] protected Button quitButton;
 
+	public static UnityEvent onTutorialButtonClicked => instance.tutorialButton.onClick;
 	public static UnityEvent onStartButtonClicked => instance.startButton.onClick;
 	public static UnityEvent<float> onMusicVolumeChanged => instance.musicVolumeSlider.onValueChanged;
 	public static UnityEvent<float> onSfxVolumeChanged => instance.sfxVolumeSlider.onValueChanged;

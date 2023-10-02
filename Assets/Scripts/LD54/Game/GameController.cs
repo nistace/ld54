@@ -13,8 +13,7 @@ namespace LD54.Game {
 			Collector.current.Init();
 			PackageSpawner.current.Init();
 			OrderManager.Init();
-			NiUtils.GameStates.GameState.ChangeState(DefaultGameState.state);
-			GameSessionData.current.StartGame();
+			NiUtils.GameStates.GameState.ChangeState(GameSessionData.tutoToBePlayed ? TutoGameState.state : DefaultGameState.state);
 		}
 
 		private void OnEnable() {
